@@ -1,29 +1,43 @@
-﻿Console.WriteLine("Введите два двоичных числа разделенных '*'");
-string input  = Console.ReadLine();
+﻿using System.Runtime.ExceptionServices;
 
-string[] numbers = input.Split('*');
+string vvod = "222222*11111";
 
-if  (numbers.Length != 2)
+char [] input = vvod.ToCharArray();
+int separator = 0;
+for (int i = 0; i < input.Length; i++)
 {
-    Console.WriteLine("Некорректный ввод");
-    
+    if (input[i]=='*')
+	{
+		separator = i;
+	}
 }
 
-string binary1 = numbers[0];
-string binary2 = numbers[1];
+int[] firstNumber = new int[separator];
 
-int num1 = Convert.ToInt32(binary1);
-int num2 = Convert.ToInt32(binary2);
-
-int result = num1 - num2;
-
-if (result < 0)
+for (int i = 0; i < separator; i++)
 {
-    Console.WriteLine("Ошибка. Вычитание отрицательное");
+	firstNumber[i] = (int)Char.GetNumericValue(input[i]);
 }
-else
-{
-    string binaryDifference = Convert.ToString(result, 2);
 
-    Console.WriteLine("Разность: " + binaryDifference);
+int[] secondNumber = new int[input.Length-separator-1];
+
+for (int i = separator+1;i < input.Length; i++)
+{
+	secondNumber[i-separator-1] = (int)Char.GetNumericValue(input[i]);
 }
+
+
+    string numberStringFirst = string.Join("", firstNumber);
+    string numberStringSecond = string.Join("", secondNumber);
+
+    int numberIntFirst = int.Parse(numberStringFirst);
+    int numberIntSecond = int.Parse(numberStringSecond);
+
+ 
+   int result = numberIntFirst-numberIntSecond;
+
+Console.WriteLine(result);
+
+
+
+
